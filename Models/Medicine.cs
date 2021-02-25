@@ -13,5 +13,6 @@ namespace Lab2_ED1.Models
         public string Description { get; set; }
         public string HManufact { get; set; }
         public int Qty  { get; set; }
+        
     }
 }
