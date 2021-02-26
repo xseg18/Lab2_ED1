@@ -13,11 +13,14 @@ namespace Lab2_ED1.Models.Data
         public Client NewClient;
         private readonly static Singleton _instance2 = new Singleton();
         public ELineales.Lista<Medicine> ReStock;
+        private readonly static Singleton _instance3 = new Singleton();
+        public ELineales.Lista<Medicine> Medicine;
         private Singleton()
         {
             Index = new E_Arboles.Binary<string>();
             NewClient = new Client();
             ReStock = new ELineales.Lista<Medicine>();
+            Medicine = new ELineales.Lista<Medicine>();
         }
         public static Singleton Instance
         {
@@ -38,6 +41,13 @@ namespace Lab2_ED1.Models.Data
             get
             {
                 return _instance2;
+            }
+        }
+        public static Singleton Instance3
+        {
+            get
+            {
+                return _instance3;
             }
         }
     }
