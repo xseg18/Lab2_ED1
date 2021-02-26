@@ -93,7 +93,7 @@ namespace ELineales
 			return -1;
 		}
 
-		public void Foreach(Action<T> action)
+		public void Foreach(Predicate<T> action)
 		{
 			Node temp = Top;
 			while (temp != null)
