@@ -25,12 +25,6 @@ namespace Lab2_ED1.Controllers
 
         public IActionResult Privacy()
         {
-            E_Arboles.Binary<int> arbol = new E_Arboles.Binary<int>();
-            arbol.Add(3, 5);
-            arbol.Add(14, 37);
-            arbol.Add(28, 47);
-            arbol.Add(53, 7);
-
             return View();
         }
 

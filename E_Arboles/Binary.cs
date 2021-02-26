@@ -1,10 +1,12 @@
 ﻿using System;
-
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Text;
 namespace E_Arboles
 {
-    public class Binary<T>
+    public class Binary<T> where T:IComparable
     {
-
         public class Node
         {
             public Node Right;
@@ -33,7 +35,8 @@ namespace E_Arboles
                     {
                         if(run.Right == null)
                         {
-                            run.Right = temp;return;
+                            run.Right = temp;
+                            return;
                         }
                         else
                         {
@@ -51,43 +54,10 @@ namespace E_Arboles
                             run = run.Left;
                         }
                     }
-                    //if(temp.Data > run.Data)
-                    //{
-                    //    if (run == Root)
-                    //    {
-                    //        Node temp2 = Root;
-                    //        Root = temp;
-                    //        Root.Left = temp2;
-                    //        return;
-                    //    }
-                    //    else
-                    //    {
-                    //        if(run.Right != null)
-                    //        {
-                    //            run.Right = temp;
-                    //            return;
-                    //        }
-                    //        else
-                    //        {
-                    //            run = run.Right;
-                    //        }
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    if(run.Left != null)
-                    //    {
-                    //        run.Left = temp;
-                    //        return;
-                    //    }
-                    //    else
-                    //    {
-                    //        run = run.Left;
-                    //    }
-                        
-                    //}
                 }
             }
         }
+
+       
     }
 }
