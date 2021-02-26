@@ -11,7 +11,7 @@ namespace ELineales
 			public Node Next;
 			public T Data;
 		}
-		Node Top = new Node();
+		Node Top =null;
 
 		public void Add(T item)
 		{
@@ -35,7 +35,7 @@ namespace ELineales
 
 		public int Count()
 		{
-			int contador = -1;
+			int contador = 0;
 			Node count = Top;
 			while (count != null)
 			{
