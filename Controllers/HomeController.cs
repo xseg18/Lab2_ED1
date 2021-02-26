@@ -76,6 +76,10 @@ namespace Lab2_ED1.Controllers
                                     else if(y == 1)
                                     {
                                         Name = cell.Trim().ToUpper();
+                                        if (Singleton.Instance3.Medicine.Count() > 0)
+                                        {
+                                            var Repetido = Singleton.Instance3.Medicine.Find(x => x.Name == Name);
+                                        }
                                         y++;
                                     }
                                     else if (y == 2)
@@ -86,6 +90,17 @@ namespace Lab2_ED1.Controllers
                                     else if (y == 3)
                                     {
                                         House = cell.Trim();
+                                        y++;
+                                    }
+                                    else if (y == 4)
+                                    {
+                                        Price = Convert.ToDecimal(cell.Substring(0).Trim());
+                                        y++;
+                                    }
+                                    else
+                                    {
+                                        Qty = Convert.ToInt32(cell.Trim());
+                                        y++;
                                     }
                                 }
                             }
