@@ -16,6 +16,7 @@ namespace Lab2_ED1.Controllers
 {
     public class HomeController : Controller
     {
+        public static bool valid = false;
         public static string NameC = "";
         public static int PosList = 0;
         private IHostingEnvironment Environment;
@@ -116,13 +117,9 @@ namespace Lab2_ED1.Controllers
         }
 
         //↓↓↓↓ PROBARLO CUANDO SE PUEDA ↓↓↓↓
-        public bool RepeatedSearcher (Medicine m)
+        public void  RepeatedSearcher (Medicine m)
         {
-            if(m.Name == NameC)
-            {
-                return true;
-            }
-            return false;
+           
         }
     }
 }

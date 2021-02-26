@@ -93,7 +93,17 @@ namespace ELineales
 			return -1;
 		}
 
-		public void Foreach(Predicate<T> action)
+		public void Foreach(Action<T> action)
+		{
+			Node temp = Top;
+			while (temp != null)
+			{
+				action(temp.Data);
+				temp = temp.Next;
+			}
+		}
+
+		public void Find(Predicate<T> action)
 		{
 			Node temp = Top;
 			while (temp != null)
