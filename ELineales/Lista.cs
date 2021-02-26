@@ -103,15 +103,20 @@ namespace ELineales
 			}
 		}
 
-		public void Find(Predicate<T> action)
+		public T Find(Predicate<T> action)
 		{
 			Node temp = Top;
 			while (temp != null)
 			{
-				action(temp.Data);
-				temp = temp.Next;
+                if (action(temp.Data) == true)
+                {
+					temp = temp.Next;
+					return temp.Data;
+                }
 			}
+			throw new System.ArgumentNullException("OutOfRange");
 		}
+	
 		private IEnumerable<T> Events()
         {
 			Node temp = Top;
