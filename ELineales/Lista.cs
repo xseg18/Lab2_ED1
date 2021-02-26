@@ -35,7 +35,7 @@ namespace ELineales
 
 		public int Count()
 		{
-			int contador = 0;
+			int contador = -1;
 			Node count = Top;
 			while (count != null)
 			{
