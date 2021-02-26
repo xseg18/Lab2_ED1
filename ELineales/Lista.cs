@@ -110,9 +110,9 @@ namespace ELineales
 			{
                 if (action(temp.Data) == true)
                 {
-					temp = temp.Next;
 					return temp.Data;
                 }
+				temp = temp.Next;
 			}
 			throw new System.ArgumentNullException("OutOfRange");
 		}
