@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Lab2_ED1.Models;
+using Lab2_ED1.Models.Data;
 
 namespace Lab2_ED1.Controllers
 {
@@ -17,6 +18,7 @@ namespace Lab2_ED1.Controllers
     {
         public static bool valid = false;
         public static string NameC = "";
+        public static int PosList = 0;
         private IHostingEnvironment Environment;
         public HomeController(IHostingEnvironment _environment)
         {
@@ -32,12 +34,9 @@ namespace Lab2_ED1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(IFormFile postedFile)
         {
-            string ID;
-            string name;
-            string Descr;
-            string house;
-            decimal price;
-            int exist;
+            string ID = "", Name = "", Description = "", House = "";
+            decimal Price = 0;
+            int Qty = 0;
             if (postedFile != null)
             {
                 string path = Path.Combine(this.Environment.WebRootPath, "Uploads");
@@ -71,14 +70,22 @@ namespace Lab2_ED1.Controllers
                                 {
                                     if(y == 0)
                                     {
-                                        //definrir ID
-
-                                    }
-                                    if(y == 1)
-                                    {
-                                        name = cell.Trim();
-                                        NameC = name;
+                                        ID = cell.Trim();
                                         y++;
+                                    }
+                                    else if(y == 1)
+                                    {
+                                        Name = cell.Trim().ToUpper();
+                                        y++;
+                                    }
+                                    else if (y == 2)
+                                    {
+                                        Description = cell.Trim();
+                                        y++;
+                                    }
+                                    else if (y == 3)
+                                    {
+                                        House = cell.Trim();
                                     }
                                 }
                             }
