@@ -15,6 +15,7 @@ namespace Lab2_ED1.Controllers
 {
     public class HomeController : Controller
     {
+        public static string NameC = "";
         private IHostingEnvironment Environment;
         public HomeController(IHostingEnvironment _environment)
         {
@@ -30,6 +31,12 @@ namespace Lab2_ED1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(IFormFile postedFile)
         {
+            string ID;
+            string name;
+            string Descr;
+            string house;
+            decimal price;
+            int exist;
             if (postedFile != null)
             {
                 string path = Path.Combine(this.Environment.WebRootPath, "Uploads");
@@ -59,6 +66,20 @@ namespace Lab2_ED1.Controllers
                             else
                             {
                                 int y = 0;
+                                foreach (string cell in row.Split(','))
+                                {
+                                    if(y == 0)
+                                    {
+                                        //definrir ID
+
+                                    }
+                                    if(y == 1)
+                                    {
+                                        name = cell.Trim();
+                                        NameC = name;
+                                        y++;
+                                    }
+                                }
                             }
                         }
                     }
@@ -85,6 +106,16 @@ namespace Lab2_ED1.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        //↓↓↓↓ PROBARLO CUANDO SE PUEDA ↓↓↓↓
+        public bool RepeatedSearcher (Medicine m)
+        {
+            if(m.Name == NameC)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
