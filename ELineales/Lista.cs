@@ -18,7 +18,7 @@ namespace ELineales
 			Node agregar = new Node();
 			agregar.Data = item;
 			agregar.Next = null;
-			if (Top != null)
+			if (Top == null)
 			{
 				Top = agregar;
 			}
