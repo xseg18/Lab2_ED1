@@ -114,7 +114,9 @@ namespace ELineales
                 }
 				temp = temp.Next;
 			}
-			throw new System.ArgumentNullException("OutOfRange");
+			T blankT = default(T);
+			return blankT;
+			
 		}
 	
 		private IEnumerable<T> Events()
