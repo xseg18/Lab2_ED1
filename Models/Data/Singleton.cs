@@ -15,6 +15,8 @@ namespace Lab2_ED1.Models.Data
         public ELineales.Lista<Medicine> ReStock;
         private readonly static Singleton _instance3 = new Singleton();
         public ELineales.Lista<Medicine> Medicine;
+        private readonly static Singleton _instance4 = new Singleton();
+        public ELineales.Lista<Medicine> Order;
         private Singleton()
         {
             Index = new E_Arboles.Binary<string>();
@@ -48,6 +50,13 @@ namespace Lab2_ED1.Models.Data
             get
             {
                 return _instance3;
+            }
+        }
+        public static Singleton Instance4
+        {
+            get
+            {
+                return _instance4;
             }
         }
     }
