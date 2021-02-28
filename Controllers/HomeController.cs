@@ -100,66 +100,6 @@ namespace Lab2_ED1.Controllers
                         }
                     }
                 }
-                //using (FileStream stream = new FileStream(filePath, FileMode.Create))
-                //{
-                //    postedFile.CopyTo(stream);
-                //}
-                //string csvData = System.IO.File.ReadAllText(filePath);
-                //bool firstRow = true;
-                //foreach (string row in csvData.Split('\n'))
-                //{
-                //    if (!string.IsNullOrEmpty(row))
-                //    {
-                //        if (!string.IsNullOrEmpty(row))
-                //        {
-                //            if (firstRow)
-                //            {
-                //                firstRow = false;
-                //            }
-                //            else
-                //            {
-                //                int y = 0;
-                //                foreach (string cell in row.Split(','))
-                //                {
-                //                    if(y == 0)
-                //                    {
-                //                        ID = cell.Trim();
-                //                        y++;
-                //                    }
-                //                    else if(y == 1)
-                //                    {
-                //                        Name = cell.Trim().ToUpper();
-                //                        if (Singleton.Instance3.Medicine.Count() > 0)
-                //                        {
-
-                //                        }
-                //                        y++;
-                //                    }
-                //                    else if (y == 2)
-                //                    {
-                //                        Description = cell.Trim();
-                //                        y++;
-                //                    }
-                //                    else if (y == 3)
-                //                    {
-                //                        House = cell.Trim();
-                //                        y++;
-                //                    }
-                //                    else if (y == 4)
-                //                    {
-                //                        Price = Convert.ToDecimal(cell.Substring(0).Trim());
-                //                        y++;
-                //                    }
-                //                    else
-                //                    {
-                //                        Qty = Convert.ToInt32(cell.Trim());
-                //                        y++;
-                //                    }
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
             }
             return View();
         }
