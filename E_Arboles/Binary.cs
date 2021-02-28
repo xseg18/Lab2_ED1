@@ -61,7 +61,15 @@ namespace E_Arboles
         {
             if (data.CompareTo(Root.Key) == 0)
             {
-                //buscar el más derecho
+                Node temp = Root;
+                Node prev = null;
+                while (temp.Right != null)
+                {
+                    prev = temp;
+                    temp = temp.Right;
+                }
+                Root.Data = temp.Data;
+                prev.Right = null;
             }
             else if(data.CompareTo(Root.Key) > 0 )
             {
@@ -107,7 +115,15 @@ namespace E_Arboles
                     }
                     else
                     {
-                        //buscar el más izquierdo
+                        Node temp1 = Root;
+                        Node prev1 = null;
+                        while (temp1.Left != null)
+                        {
+                            prev1 = temp;
+                            temp1 = temp.Left;
+                        }
+                        Root.Data = temp1.Data;
+                        prev1.Left = null;
                     }
                 }
             }
@@ -155,7 +171,15 @@ namespace E_Arboles
                     }
                     else
                     {
-                        //buscar el más derecho
+                        Node temp1 = Root;
+                        Node prev1 = null;
+                        while (temp1.Right != null)
+                        {
+                            prev1 = temp;
+                            temp1 = temp.Right;
+                        }
+                        Root.Data = temp1.Data;
+                        prev1.Right = null;
                     }
                 }
             }
