@@ -122,7 +122,7 @@ namespace E_Arboles
                             prev1 = temp;
                             temp1 = temp.Left;
                         }
-                        Root.Data = temp1.Data;
+                        Root.Key = temp1.Key;
                         prev1.Left = null;
                     }
                 }
@@ -178,11 +178,59 @@ namespace E_Arboles
                             prev1 = temp;
                             temp1 = temp.Right;
                         }
-                        Root.Data = temp1.Data;
+                        Root.Key = temp1.Key;
                         prev1.Right = null;
                     }
                 }
             }
+        }
+        public int Find(T data)
+        {
+            if(Root.Data.CompareTo(data) < 0)
+            {
+                Node temp = Root.Right;
+                while (temp != null)
+                {
+                    if (temp.Key.Equals(data))
+                    {
+                        return temp.Data;
+                    }
+                    else
+                    {
+                        if (temp.Left.Key.Equals(data))
+                        {
+                            return temp.Left.Data;
+                        }
+                        else
+                        {
+                            temp = temp.Right;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Node temp = Root.Left;
+                while (temp != null)
+                {
+                    if (temp.Key.Equals(data))
+                    {
+                        return temp.Data;
+                    }
+                    else
+                    {
+                        if (temp.Right.Key.Equals(data))
+                        {
+                            return temp.Right.Data;
+                        }
+                        else
+                        {
+                            temp = temp.Left;
+                        }
+                    }
+                }
+            }
+            return -1;
         }
     }
 }
