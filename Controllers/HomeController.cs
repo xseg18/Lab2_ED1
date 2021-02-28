@@ -67,6 +67,21 @@ namespace Lab2_ED1.Controllers
                         if (Singleton.Instance3.Medicine.Count() > 0)
                         {
                             var esRepetido = Singleton.Instance3.Medicine.Find(x => x.Name == Name);
+                            if (esRepetido == null)
+                            {
+                                var newMedicine = new Medicine
+                                {
+                                    ID = ID,
+                                    Name = Name,
+                                    Description = Description,
+                                    HManufact = House,
+                                    Price = Price,
+                                    Qty = Qty
+                                };
+                                Singleton.Instance3.Medicine.Add(newMedicine);
+                                Singleton.Instance.Index.Add(Name, PosList);
+                                PosList++;
+                            }
                         }
                         else
                         {
@@ -152,17 +167,50 @@ namespace Lab2_ED1.Controllers
         public IActionResult Privacy()
         {
             return View();
-        }
-
-        public IActionResult HPMedicaments()
-        {
-            return View();
+        
         }
 
         public IActionResult Order()
         {
+            return View(Singleton.Instance1.NewClient);
+        }
+
+        public IActionResult Cliente()
+        {
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Cliente(IFormCollection collection)
+        {
+            try
+            {
+                var newClient = new Models.Client
+                {
+                    name = collection["name"],
+                    Adress = collection["Adress"],
+                    NIT = Convert.ToInt32(collection["NIT"])
+                };
+                return RedirectToAction(nameof(Order));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        public IActionResult Restock()
+        {
+            return View();
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
