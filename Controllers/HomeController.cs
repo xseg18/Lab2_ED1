@@ -18,6 +18,7 @@ namespace Lab2_ED1.Controllers
     public class HomeController : Controller
     {
         public static int PosList = 0;
+
         private IHostingEnvironment Environment;
         public HomeController(IHostingEnvironment _environment)
         {
@@ -112,7 +113,7 @@ namespace Lab2_ED1.Controllers
 
         public IActionResult Order()
         {
-            return View(Singleton.Instance1.NewClient);
+            return View();
         }
 
         public IActionResult Cliente()
@@ -143,6 +144,28 @@ namespace Lab2_ED1.Controllers
         public IActionResult Search()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Search(IFormCollection collection)
+        {
+            try
+            {
+                if (Singleton.Instance.Index.Find(collection["Name"].ToString().ToUpper()) > -1)
+                {
+
+                    return View();
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            catch
+            {
+                return View();
+            }            
         }
 
         public IActionResult Restock()
