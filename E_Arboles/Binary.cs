@@ -175,8 +175,8 @@ namespace E_Arboles
                         Node prev1 = null;
                         while (temp1.Right != null)
                         {
-                            prev1 = temp;
-                            temp1 = temp.Right;
+                            prev1 = temp1;
+                            temp1 = temp1.Right;
                         }
                         Root.Key = temp1.Key;
                         prev1.Right = null;
