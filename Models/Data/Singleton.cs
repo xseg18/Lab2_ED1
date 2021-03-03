@@ -23,6 +23,7 @@ namespace Lab2_ED1.Models.Data
             NewClient = new Client();
             ReStock = new ELineales.Lista<Medicine>();
             Medicine = new ELineales.Lista<Medicine>();
+            Order = new ELineales.Lista<Medicine>();
         }
         public static Singleton Instance
         {

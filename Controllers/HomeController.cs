@@ -17,7 +17,8 @@ namespace Lab2_ED1.Controllers
 {
     public class HomeController : Controller
     {
-        public static int PosList = 0;
+        public static string medName;
+        public static int PosList = 0, medPos, medQty;
 
         private IHostingEnvironment Environment;
         public HomeController(IHostingEnvironment _environment)
@@ -113,7 +114,7 @@ namespace Lab2_ED1.Controllers
 
         public IActionResult Order()
         {
-            return View();
+            return View(Singleton.Instance4.Order);
         }
 
         public IActionResult Cliente()
@@ -152,13 +153,24 @@ namespace Lab2_ED1.Controllers
         {
             try
             {
-                if (Singleton.Instance.Index.Find(collection["Name"].ToString().ToUpper()) > -1)
+                medName = collection["Name"].ToString().ToUpper();
+                medPos = Singleton.Instance.Index.Find(medName);
+                if (medPos > -1)
                 {
-
-                    return View();
+                    medQty = Convert.ToInt32(collection["Qty"]);
+                    if (Singleton.Instance3.Medicine[medPos].Qty >= medQty)
+                    {
+                        return RedirectToAction(nameof(Med));
+                    }
+                    else
+                    {
+                        //No hay ecistencia
+                        return View();
+                    }
                 }
                 else
                 {
+                    //No se encuentra en el índice
                     return View();
                 }
             }
@@ -166,6 +178,38 @@ namespace Lab2_ED1.Controllers
             {
                 return View();
             }            
+        }
+
+        public IActionResult Med()
+        {
+            var viewMed = Singleton.Instance3.Medicine[medPos];
+            return View(viewMed);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Add()
+        {
+            var Medicine = Singleton.Instance3.Medicine[medPos];
+
+            var newOrder = new Medicine
+            {
+                ID = Medicine.ID,
+                Name = Medicine.Name,
+                Description = Medicine.Description,
+                HManufact = Medicine.HManufact,
+                Price = Medicine.Price,
+                Qty = medQty
+            };
+
+            Singleton.Instance4.Order.Add(newOrder);
+            Singleton.Instance3.Medicine[medPos].Qty -= medQty;
+
+            if (Singleton.Instance3.Medicine[medPos].Qty == 0)
+            {
+                Singleton.Instance.Index.Delete(medName);
+            }
+            return RedirectToAction(nameof(Order));
         }
 
         public IActionResult Restock()
