@@ -186,7 +186,7 @@ namespace E_Arboles
         }
         public int Find(T data)
         {
-            if(Root.Data.CompareTo(data) < 0)
+            if(Root.Key.CompareTo(data) < 0)
             {
                 Node temp = Root.Right;
                 while (temp != null)
