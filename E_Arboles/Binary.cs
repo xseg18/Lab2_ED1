@@ -197,7 +197,7 @@ namespace E_Arboles
                     }
                     else
                     {
-                        if (temp.Left.Key.Equals(data))
+                        if (temp.Left.Key.Equals(data) && temp.Left != null)
                         {
                             return temp.Left.Data;
                         }
@@ -219,7 +219,7 @@ namespace E_Arboles
                     }
                     else
                     {
-                        if (temp.Right.Key.Equals(data))
+                        if (temp.Right.Key.Equals(data) && temp.Right != null)
                         {
                             return temp.Right.Data;
                         }
