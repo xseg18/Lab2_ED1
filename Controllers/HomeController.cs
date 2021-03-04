@@ -164,7 +164,7 @@ namespace Lab2_ED1.Controllers
                     }
                     else
                     {
-                        //No hay ecistencia
+                        //No hay existencia
                         ViewData["QTY"] = "TEST";
                         return View();
                     }
