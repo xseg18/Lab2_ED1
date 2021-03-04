@@ -197,20 +197,20 @@ namespace E_Arboles
                     }
                     else
                     {
-                        if (temp.Left.Key.Equals(data) && temp.Left != null)
+                        if(temp.Left != null)
                         {
-                            return temp.Left.Data;
+                            if (temp.Left.Key.Equals(data))
+                            {
+                                return temp.Left.Data;
+                            }
                         }
-                        else
-                        {
-                            temp = temp.Right;
-                        }
+                        temp = temp.Right;
                     }
                 }
             }
             else
             {
-                Node temp = Root.Left;
+                Node temp = Root.Left;  
                 while (temp != null)
                 {
                     if (temp.Key.Equals(data))
@@ -219,14 +219,14 @@ namespace E_Arboles
                     }
                     else
                     {
-                        if (temp.Right.Key.Equals(data) && temp.Right != null)
+                        if(temp.Right != null)
                         {
-                            return temp.Right.Data;
+                            if (temp.Right.Key.Equals(data))
+                            {
+                                return temp.Right.Data;
+                            }
                         }
-                        else
-                        {
-                            temp = temp.Left;
-                        }
+                        temp = temp.Left;
                     }
                 }
             }
