@@ -17,7 +17,7 @@ namespace Lab2_ED1.Controllers
 {
     public class HomeController : Controller
     {
-        public static string medName;
+        public static string medName, clientName, clientAdress, clientNIT;
         public static int PosList = 0, medPos, medQty;
 
         private IHostingEnvironment Environment;
@@ -66,9 +66,9 @@ namespace Lab2_ED1.Controllers
                         Price = Convert.ToDecimal(fields[4].Substring(1));
                         Qty = Convert.ToInt32(fields[5]);
 
-                        if (Singleton.Instance3.Medicine.Count() > 0)
+                        if (Singleton.Instance2.Medicine.Count() > 0)
                         {
-                            var esRepetido = Singleton.Instance3.Medicine.Find(x => x.Name == Name);
+                            var esRepetido = Singleton.Instance2.Medicine.Find(x => x.Name == Name);
                             if (esRepetido == null)
                             {
                                 var newMedicine = new Medicine
@@ -80,7 +80,7 @@ namespace Lab2_ED1.Controllers
                                     Price = Price,
                                     Qty = Qty
                                 };
-                                Singleton.Instance3.Medicine.Add(newMedicine);
+                                Singleton.Instance2.Medicine.Add(newMedicine);
                                 Singleton.Instance.Index.Add(Name, PosList);
                                 PosList++;
                             }
@@ -96,7 +96,7 @@ namespace Lab2_ED1.Controllers
                                 Price = Price,
                                 Qty = Qty
                             };
-                            Singleton.Instance3.Medicine.Add(newMedicine);
+                            Singleton.Instance2.Medicine.Add(newMedicine);
                             Singleton.Instance.Index.Add(Name, PosList);
                             PosList++;
                         }
@@ -114,7 +114,10 @@ namespace Lab2_ED1.Controllers
 
         public IActionResult Order()
         {
-            return View(Singleton.Instance4.Order);
+            ViewData["Nombre"] = clientName;
+            ViewData["Dirección"] = clientAdress;
+            ViewData["NIT"] = clientNIT;
+            return View(Singleton.Instance3.Order);
         }
 
         public IActionResult Cliente()
@@ -128,12 +131,9 @@ namespace Lab2_ED1.Controllers
         {
             try
             {
-                var newClient = new Models.Client
-                {
-                    name = collection["name"],
-                    Adress = collection["Adress"],
-                    NIT = Convert.ToInt32(collection["NIT"])
-                };
+                clientName = collection["Name"];
+                clientAdress = collection["Adress"];
+                clientNIT = collection["NIT"];
                 return RedirectToAction(nameof(Order));
             }
             catch
@@ -158,19 +158,20 @@ namespace Lab2_ED1.Controllers
                 if (medPos > -1)
                 {
                     medQty = Convert.ToInt32(collection["Qty"]);
-                    if (Singleton.Instance3.Medicine[medPos].Qty >= medQty)
+                    if (Singleton.Instance2.Medicine[medPos].Qty >= medQty)
                     {
                         return RedirectToAction(nameof(Med));
                     }
                     else
                     {
                         //No hay ecistencia
+                        ViewData["QTY"] = "TEST";
                         return View();
                     }
                 }
                 else
                 {
-                    //No se encuentra en el índice
+                    ViewData["Index"] = "PRUEBA";
                     return View();
                 }
             }
@@ -182,7 +183,7 @@ namespace Lab2_ED1.Controllers
 
         public IActionResult Med()
         {
-            var viewMed = Singleton.Instance3.Medicine[medPos];
+            var viewMed = Singleton.Instance2.Medicine[medPos];
             return View(viewMed);
         }
 
@@ -190,7 +191,7 @@ namespace Lab2_ED1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add()
         {
-            var Medicine = Singleton.Instance3.Medicine[medPos];
+            var Medicine = Singleton.Instance2.Medicine[medPos];
 
             var newOrder = new Medicine
             {
@@ -202,11 +203,12 @@ namespace Lab2_ED1.Controllers
                 Qty = medQty
             };
 
-            Singleton.Instance4.Order.Add(newOrder);
-            Singleton.Instance3.Medicine[medPos].Qty -= medQty;
+            Singleton.Instance3.Order.Add(newOrder);
+            Singleton.Instance2.Medicine[medPos].Qty -= medQty;
 
-            if (Singleton.Instance3.Medicine[medPos].Qty == 0)
+            if (Singleton.Instance2.Medicine[medPos].Qty == 0)
             {
+                Singleton.Instance1.ReStock.Add(Singleton.Instance.Index.Find(medName));
                 Singleton.Instance.Index.Delete(medName);
             }
             return RedirectToAction(nameof(Order));

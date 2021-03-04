@@ -9,8 +9,29 @@
 
 <h4>Orden Actual</h4>
 <hr />
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Nombre
+        </dt>
+        <dd class="col-sm-10">
+            @ViewData["Nombre"]
+        </dd>
+        <dt class="col-sm-2">
+            Dirección
+        </dt>
+        <dd class="col-sm-10">
+            @ViewData["Dirección"]
+        </dd>
+        <dt class="col-sm-2">
+            NIT
+        </dt>
+        <dd class="col-sm-10">
+            @ViewData["NIT"]
+        </dd>
+    </dl>
+</div>
 <a asp-action="Search">Buscar Medicamento</a>
-
 <table class="table">
     <thead>
         <tr>
