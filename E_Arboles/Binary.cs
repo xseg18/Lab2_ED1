@@ -15,7 +15,7 @@ namespace E_Arboles
             public int Data;
         }
         public Node Root;
-        string order = "";
+        public string Order = "";
         public void Add(T add, int c)
         {
             Node temp = new Node();
@@ -192,7 +192,11 @@ namespace E_Arboles
         }
         public int Find(T data)
         {
-            if(Root.Key.CompareTo(data)== 0)
+            if (Root == null)
+            {
+                return -1;
+            }
+            else if(Root.Key.CompareTo(data)== 0)
             {
                 return Root.Data;
             }
@@ -249,10 +253,10 @@ namespace E_Arboles
             {
                 return "";
             }
-            order += head.Key.ToString() + " =>";
-            PreOrder(head.Right);
+            Order += head.Key.ToString() + " =>";
             PreOrder(head.Left);
-            return order;
+            PreOrder(head.Right);
+            return Order;
         }
         public string InOrder(Node head)
         {
@@ -260,10 +264,10 @@ namespace E_Arboles
             {
                 return "";
             }
-            PreOrder(head.Right);
-            order += head.Key.ToString() + " =>";
-            PreOrder(head.Left);
-            return order;
+            InOrder(head.Left);
+            Order += head.Key.ToString() + " =>";
+            InOrder(head.Right);
+            return Order;
         }
         public string PostOrder(Node head)
         {
@@ -271,10 +275,10 @@ namespace E_Arboles
             {
                 return "";
             }
-            PreOrder(head.Right);
-            PreOrder(head.Left);
-            order += head.Key.ToString() + " =>";
-            return order;
+            PostOrder(head.Left);
+            PostOrder(head.Right);
+            Order += head.Key.ToString() + " =>";
+            return Order;
         }
     }
 }

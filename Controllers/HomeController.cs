@@ -18,7 +18,7 @@ namespace Lab2_ED1.Controllers
     public class HomeController : Controller
     {
         public static bool hayCliente = false;
-        public static string medName, clientName, clientAdress, clientNIT;
+        public static string medName, clientName, clientAdress, clientNIT, Recorrido;
         public static int PosList = 0, medPos, medQty;
 
         private IHostingEnvironment Environment;
@@ -126,7 +126,6 @@ namespace Lab2_ED1.Controllers
         {
             if (hayCliente)
             {
-                string x = Singleton.Instance.Index.PreOrder(Singleton.Instance.Index.Root);
                 return RedirectToAction(nameof(Order));
             }
             else
@@ -274,6 +273,33 @@ namespace Lab2_ED1.Controllers
             Singleton.Instance3.Order.Clear();
             hayCliente = false;
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult printIndex(string recorrido)
+        {
+            if (recorrido == "Pre")
+            {
+                Recorrido = Singleton.Instance.Index.PreOrder(Singleton.Instance.Index.Root);
+            }
+            else if (recorrido == "Post")
+            {
+                Recorrido = Singleton.Instance.Index.PostOrder(Singleton.Instance.Index.Root);
+            }
+            else if (recorrido == "In")
+            {
+                 Recorrido = Singleton.Instance.Index.InOrder(Singleton.Instance.Index.Root);
+            }
+            Singleton.Instance.Index.Order = "";
+            ViewData["Recorrido"] = Recorrido;
+            return View();
+        }
+
+        public IActionResult Print()
+        {
+            StreamWriter writer = new StreamWriter("Index_File.txt");
+            writer.Write(Recorrido);
+            writer.Close();
+            return RedirectToAction(nameof(Order));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

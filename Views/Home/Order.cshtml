@@ -32,6 +32,22 @@
     </dl>
 </div>
 <p style="text-align:left"><a asp-action="Search">Buscar Medicamento</a></p>
+<form asp-action="printIndex">
+    <label>Tipo de recorrido:</label><br />
+    <label>
+        <input type="radio" name="recorrido" value="Pre" required />
+        Pre-Orden
+    </label>
+    <label>
+        <input type="radio" name="recorrido" value="Post" />
+        Post-Orden
+    </label>
+    <label>
+        <input type="radio" name="recorrido" value="In" />
+        In-Orden
+    </label><br />
+    <input type="submit" value="Mostar" />
+</form>
 <p style="text-align:right"><a asp-action="Finalizar">Finalizar Pedido</a></p>
 <table class="table">
     <thead>
