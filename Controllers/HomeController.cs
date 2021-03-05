@@ -126,6 +126,7 @@ namespace Lab2_ED1.Controllers
         {
             if (hayCliente)
             {
+                string x = Singleton.Instance.Index.PreOrder(Singleton.Instance.Index.Root);
                 return RedirectToAction(nameof(Order));
             }
             else

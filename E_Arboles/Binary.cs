@@ -14,8 +14,8 @@ namespace E_Arboles
             public T Key;
             public int Data;
         }
-        Node Root;
-        
+        public Node Root;
+        string order = "";
         public void Add(T add, int c)
         {
             Node temp = new Node();
@@ -241,6 +241,40 @@ namespace E_Arboles
                 }
             }
             return -1;
+        }
+        public string PreOrder(Node head)
+        {
+            
+            if(head == null)
+            {
+                return "";
+            }
+            order += head.Key.ToString() + " =>";
+            PreOrder(head.Right);
+            PreOrder(head.Left);
+            return order;
+        }
+        public string InOrder(Node head)
+        {
+            if(head == null)
+            {
+                return "";
+            }
+            PreOrder(head.Right);
+            order += head.Key.ToString() + " =>";
+            PreOrder(head.Left);
+            return order;
+        }
+        public string PostOrder(Node head)
+        {
+            if (head == null)
+            {
+                return "";
+            }
+            PreOrder(head.Right);
+            PreOrder(head.Left);
+            order += head.Key.ToString() + " =>";
+            return order;
         }
     }
 }
