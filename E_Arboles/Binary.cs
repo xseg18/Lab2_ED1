@@ -15,7 +15,7 @@ namespace E_Arboles
             public int Data;
         }
         Node Root;
-
+        
         public void Add(T add, int c)
         {
             Node temp = new Node();
@@ -115,15 +115,18 @@ namespace E_Arboles
                     }
                     else
                     {
-                        Node temp1 = Root;
+                        Node temp1 = temp.Right;
                         Node prev1 = null;
+                        Node next = null;
                         while (temp1.Left != null)
                         {
-                            prev1 = temp;
-                            temp1 = temp.Left;
+                            prev1 = temp1;
+                            temp1 = temp1.Left;
+                            next = temp1.Right;
                         }
-                        Root.Key = temp1.Key;
-                        prev1.Left = null;
+                        temp.Key = temp1.Key;
+                        temp.Data = temp1.Data;
+                        prev1 = next;
                     }
                 }
             }
@@ -171,22 +174,29 @@ namespace E_Arboles
                     }
                     else
                     {
-                        Node temp1 = Root;
+                        Node temp1 = temp.Right;
                         Node prev1 = null;
-                        while (temp1.Right != null)
+                        Node next = null;
+                        while (temp1.Left != null)
                         {
                             prev1 = temp1;
-                            temp1 = temp1.Right;
+                            temp1 = temp1.Left;
+                            next = temp1.Right;
                         }
-                        Root.Key = temp1.Key;
-                        prev1.Right = null;
+                        temp.Key = temp1.Key;
+                        temp.Data = temp1.Data;
+                        prev1 = next;
                     }
                 }
             }
         }
         public int Find(T data)
         {
-            if(Root.Key.CompareTo(data) < 0)
+            if(Root.Key.CompareTo(data)== 0)
+            {
+                return Root.Data;
+            }
+            else if(Root.Key.CompareTo(data) < 0)
             {
                 Node temp = Root.Right;
                 while (temp != null)
