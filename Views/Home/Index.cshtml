@@ -4,12 +4,15 @@
 
 <div class="text-center">
     <h1 class="display-4">Farmacia "Tu salud en mis manos"</h1>
-    <p>Curando tus enfermedades fátidicas desde 1762</p>
+    <p><i>Curando tus enfermedades fatídicas desde 1762</i></p>
     <br />
     <br />
-    <p>Ingrese el listado de fármacos</p>
+    <p>Ingrese el listado de fármacos:</p>
     <form asp-action="Index" method="post" enctype="multipart/form-data">
         <input type="file" name="postedFile" />
         <input type="submit" value="Import" />
     </form>
+    <div class="text-center">
+        <p style="font-size:larger; color:dodgerblue">@ViewData["Message"]</p>
+    </div>
 </div>

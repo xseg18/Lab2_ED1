@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "MedRestock";
+}
+
+<h1>Reabastecer</h1>
+
+<h4>Medicamentos no disponibles</h4>
+<hr />
+
+<p><i>Medicina agotada: @ViewData["Restock"]</i></p>
+
+<form asp-action="Restock">
+    <div class="form-group">
+        <input type="submit" value="Reabastecer" class="btn btn-primary" />
+    </div>
+</form>

@@ -17,6 +17,7 @@ namespace Lab2_ED1.Controllers
 {
     public class HomeController : Controller
     {
+        public static bool hayCliente = false;
         public static string medName, clientName, clientAdress, clientNIT;
         public static int PosList = 0, medPos, medQty;
 
@@ -101,6 +102,7 @@ namespace Lab2_ED1.Controllers
                             PosList++;
                         }
                     }
+                    ViewData["Message"] = "La carga de la lista se realizó correctamente.";
                 }
             }
             return View();
@@ -122,7 +124,14 @@ namespace Lab2_ED1.Controllers
 
         public IActionResult Cliente()
         {
-            return View();
+            if (hayCliente)
+            {
+                return RedirectToAction(nameof(Order));
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -134,6 +143,7 @@ namespace Lab2_ED1.Controllers
                 clientName = collection["Name"];
                 clientAdress = collection["Adress"];
                 clientNIT = collection["NIT"];
+                hayCliente = true;
                 return RedirectToAction(nameof(Order));
             }
             catch
@@ -164,14 +174,13 @@ namespace Lab2_ED1.Controllers
                     }
                     else
                     {
-                        //No hay existencia
-                        ViewData["QTY"] = "TEST";
+                        ViewData["QTY"] = "No hay suficientes existencias para satisfacer esta búsqueda.";
                         return View();
                     }
                 }
                 else
                 {
-                    ViewData["Index"] = "PRUEBA";
+                    ViewData["Index"] = "El medicamento no se encontró en el índice.";
                     return View();
                 }
             }
@@ -214,11 +223,57 @@ namespace Lab2_ED1.Controllers
             return RedirectToAction(nameof(Order));
         }
 
-        public IActionResult Restock()
+        public IActionResult MedRestock()
         {
+            @ViewData["Restock"] = Singleton.Instance1.ReStock.Count();
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Restock()
+        {
+            Random random = new Random();
+            foreach (var item in Singleton.Instance1.ReStock)
+            {
+                Singleton.Instance2.Medicine[item].Qty = random.Next(1, 16);
+                Singleton.Instance.Index.Add(Singleton.Instance2.Medicine[item].Name, item);
+            }
+            Singleton.Instance1.ReStock.Clear();
+
+            if (hayCliente)
+            {
+                return RedirectToAction(nameof(Order));
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        public IActionResult Finalizar()
+        {
+            decimal totalPay = 0;
+            ViewData["Nombre"] = clientName;
+            ViewData["Dirección"] = clientAdress;
+            ViewData["NIT"] = clientNIT;
+            ViewData["Cantidad"] = Singleton.Instance3.Order.Count();
+            foreach (var item in Singleton.Instance3.Order)
+            {
+                totalPay += item.Qty * item.Price;
+            }
+            ViewData["Total"] = totalPay;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Confirmar()
+        {
+            Singleton.Instance3.Order.Clear();
+            hayCliente = false;
+            return RedirectToAction(nameof(Index));
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
