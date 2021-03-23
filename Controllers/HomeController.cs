@@ -49,6 +49,10 @@ namespace Lab2_ED1.Controllers
 
                 string fileName = Path.GetFileName(postedFile.FileName);
                 string filePath = Path.Combine(path, fileName);
+                using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                }
                 using (TextFieldParser csvParser = new TextFieldParser(filePath))
                 {
                     csvParser.CommentTokens = new string[] { "#" };
